@@ -13,5 +13,4 @@ class TestCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var testLabel: UILabel!
     @IBOutlet weak var imgView: UIImageView!
     
-    
 }

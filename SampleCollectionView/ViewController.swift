@@ -49,13 +49,11 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("ok")
         let selectCell: String = searchText[indexPath.row]
         self.performSegue(withIdentifier: "NextToWeb", sender: selectCell)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("ok")
         let WebViewController = segue.destination as! WebViewController
         WebViewController.url = sender as! String
     }
@@ -79,10 +77,12 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
         guard
             let encodedUsername = userName.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
             let url = URL(string: "https://qiita.com/api/v2/users/\(encodedUsername)")
-            else { return }
+        else { return }
+        
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let data = data else { return }
+            
             do {
                 let object = try JSONDecoder().decode(User.self, from: data)
                 
@@ -99,9 +99,11 @@ class ViewController: UIViewController, UICollectionViewDataSource,UICollectionV
                 } catch {
                     print("Error: can't create image.")
                 }
+                
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
+                
             } catch let e {
                 print(e)
             }
