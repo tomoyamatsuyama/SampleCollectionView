@@ -9,14 +9,12 @@
 import UIKit
 
 class WebViewController: UIViewController, UIWebViewDelegate {
-
     @IBOutlet weak var webView: UIWebView!
     var url: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.webView.delegate = self
-        
         let accessUrl  = NSURL(string: "https://qiita.com/\(url)")
         let request = NSURLRequest(url: accessUrl! as URL)
         self.webView.loadRequest(request as URLRequest)
